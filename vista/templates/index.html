@@ -1,0 +1,49 @@
+{% load static %}
+{% block content%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vista</title>
+</head>
+<a>
+    <form>
+        {% csrf_token %}
+    <button formaction="{% url 'SignUpAsDoctor' %}">SignUp AS Doctor</button>
+    <button formaction="{% url 'SignUpAsClient' %}">SignUp AS Client</button>
+     <br>
+    <button formaction="{% url 'login' %}">Login</button>
+    <button formaction="{% url 'login' %}">Book Now</button>
+
+    </form>
+    <hr>
+    {% for doctor in doctors %}
+        {% if doctor.photo %}
+            <img style="height: 120px; width: 120px;" src="{{doctor.photo.url}}" alt="doctor photo">
+        {% else %}
+            <img style="height: 120px; width: 120px;"  src="{% static 'photos/doctor.jpg' %}" alt="doctor photo">
+        {% endif %}
+        <br>
+        <h2>Name : {{doctor.name}}</h2></a>
+        <p>Age : {{doctor.age}}</p>
+        <p>Address : {{doctor.address}}</p>
+        <p>Cost : {{doctor.cost}}</p>
+        <h3>Experiences</h3>
+        <ul>
+         {% for experience in doctor.experiences.all %}
+            <li><p><pre>Name Of Hospital : {{experience.name_of_hospital}}                years Of Experience : {{experience.year_of_experience}}</pre></li>
+            {% endfor %}
+        </ul>
+    <hr>
+    {% endfor %}
+
+</body>
+
+<script>
+
+</script>
+</html>
+    {% endblock content%}
+
+
